@@ -28,7 +28,7 @@ const signUp = async (req, res) => {
             name: `${firstName} ${lastName}`,
         });
 
-        const token = JWT.sign({ email: result.email, id: result._id }, process.env.SECRET, { expiresIn: "5h" });
+        const token = JWT.sign({ email: result.email, id: result._id }, process.env.SECRET, { expiresIn: "10h" });
         res.status(201).json({ result, token });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
@@ -52,9 +52,11 @@ const signIn = async (req, res) => {
         if (!oldUser) return res.status(404).json({ message: "User doesn't exist" });
 
         const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
-        if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials!" });
+        if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-        const token = JWT.sign({ email: oldUser.email, id: oldUser._id }, process.env.SECRET, { expiresIn: "5h" });
+        const token = JWT.sign({ email: oldUser.email, id: oldUser._id }, process.env.SECRET, {
+            expiresIn: "10h",
+        });
 
         res.status(200).json({ result: oldUser, token });
     } catch (error) {
