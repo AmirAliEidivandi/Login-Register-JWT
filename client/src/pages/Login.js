@@ -3,7 +3,7 @@ import { MDBCard, MDBCardBody, MDBInput, MDBCardFooter, MDBValidation, MDBBtn, M
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { login } from "../redux/features/authSlice";
+import { googleSignin, login } from "../redux/features/authSlice";
 import { GoogleLogin } from "react-google-login";
 
 const initialState = {
@@ -35,12 +35,17 @@ const Login = () => {
     };
 
     const googleSuccess = (resp) => {
-        console.log(resp);
-    }
+        const email = resp?.profileObj?.email;
+        const name = resp?.profileObj?.name;
+        const token = resp?.tokenId;
+        const googleId = resp?.googleId;
+        const result = { email, name, token, googleId };
+        dispatch(googleSignin({ result, navigate, toast }));
+    };
 
     const googleFailure = (error) => {
-        toast.error(error)
-    }
+        toast.error(error);
+    };
 
     return (
         <div style={{ margin: "auto", padding: "15px", maxWidth: "450px", alignContent: "center", marginTop: "120px" }}>
