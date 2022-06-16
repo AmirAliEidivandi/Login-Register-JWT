@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { check } = require("express-validator");
-const { signUp, signIn } = require("../controllers/user.controllers");
+const { signUp, signIn, googleSignIn } = require("../controllers/user.controllers");
 
 router.post(
     "/signup",
@@ -13,5 +13,7 @@ router.post(
     [check("email", "please provide a valid email").isEmail(), check("password", "please provide a passowrd that is greater than 5 characters").isLength({ min: 6 }).exists()],
     signIn
 );
+
+router.post('/googleSignIn', googleSignIn)
 
 module.exports = router;
