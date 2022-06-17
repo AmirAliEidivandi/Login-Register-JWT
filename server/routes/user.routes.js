@@ -14,6 +14,6 @@ router.post(
     signIn
 );
 
-router.post('/googleSignIn', googleSignIn)
+router.post("/googleSignIn", googleSignIn);
 
 module.exports = router;

@@ -91,5 +91,5 @@ const googleSignIn = async (req, res) => {
 module.exports = {
     signUp,
     signIn,
-    googleSignIn
+    googleSignIn,
 };

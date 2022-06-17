@@ -5,7 +5,8 @@ const morgan = require("morgan");
 const app = express();
 require("dotenv").config();
 
-const userRouter = require('./routes/user.routes');
+const userRouter = require("./routes/user.routes");
+const tourRouter = require("./routes/tour.routes");
 
 // middlewares
 app.use(express.json({ limit: "30mb", extended: true }));
@@ -14,7 +15,8 @@ app.use(morgan("dev"));
 app.use(cors());
 
 // routes
-app.use('/auth', userRouter) // http://localhost:5000/auth/signup
+app.use("tour", tourRouter); // http://localhost:5000/tour
+app.use("/auth", userRouter); // http://localhost:5000/auth/signup
 app.get("/", (req, res) => res.send("Hello World!"));
 
 const PORT = process.env.PORT || 5000;
