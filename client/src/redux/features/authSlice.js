@@ -4,33 +4,33 @@ import * as api from "../api";
 export const login = createAsyncThunk("auth/login", async ({ formValue, navigate, toast }, { rejectWithValue }) => {
     try {
         const response = await api.signIn(formValue);
-        toast.success("Login Successfully!");
+        toast.success("Login Successfully");
         navigate("/");
         return response.data;
-    } catch (error) {
-        return rejectWithValue(error.response.data);
+    } catch (err) {
+        return rejectWithValue(err.response.data);
     }
 });
 
 export const register = createAsyncThunk("auth/register", async ({ formValue, navigate, toast }, { rejectWithValue }) => {
     try {
         const response = await api.signUp(formValue);
-        toast.success("Register Successfully!");
+        toast.success("Register Successfully");
         navigate("/");
         return response.data;
-    } catch (error) {
-        return rejectWithValue(error.response.data);
+    } catch (err) {
+        return rejectWithValue(err.response.data);
     }
 });
 
-export const googleSignin = createAsyncThunk("auth/googleSignIn", async ({ result, navigate, toast }, { rejectWithValue }) => {
+export const googleSignIn = createAsyncThunk("auth/googleSignIn", async ({ result, navigate, toast }, { rejectWithValue }) => {
     try {
         const response = await api.googleSignIn(result);
-        toast.success("Google Sign-in Successfully!");
+        toast.success("Google Sign-in Successfully");
         navigate("/");
         return response.data;
-    } catch (error) {
-        return rejectWithValue(error.response.data);
+    } catch (err) {
+        return rejectWithValue(err.response.data);
     }
 });
 
@@ -75,15 +75,15 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = action.payload.message;
         },
-        [googleSignin.pending]: (state, action) => {
+        [googleSignIn.pending]: (state, action) => {
             state.loading = true;
         },
-        [googleSignin.fulfilled]: (state, action) => {
+        [googleSignIn.fulfilled]: (state, action) => {
             state.loading = false;
             localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
             state.user = action.payload;
         },
-        [googleSignin.rejected]: (state, action) => {
+        [googleSignIn.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.message;
         },

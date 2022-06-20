@@ -16,7 +16,7 @@ app.use(cors());
 
 // routes
 app.use("/tour", tourRouter); // http://localhost:5000/tour
-app.use("/auth", userRouter); // http://localhost:5000/auth/signup
+app.use("/users", userRouter); // http://localhost:5000/users/signup
 app.get("/", (req, res) => res.send("Hello World!"));
 
 const PORT = process.env.PORT || 5000;
